@@ -15,7 +15,7 @@ class ThreescaleService {
 
         def baseName = util.basename(this.openapi.filename)
         def globalOptions = toolbox.getGlobalToolboxOptions()
-        def commandLine = ["3scale", "import", "openapi"] + globalOptions + ["-t", "--skip-swagger-validations", this.environment.targetSystemName, "-d", this.toolbox.destination, "/artifacts/${baseName}"]
+        def commandLine = ["3scale", "import", "openapi"] + globalOptions + ["--skip-swagger-validations", "-t", this.environment.targetSystemName, "-d", this.toolbox.destination, "/artifacts/${baseName}"]
         if (this.environment.stagingPublicBaseURL != null) {
             commandLine += "--staging-public-base-url=${this.environment.stagingPublicBaseURL}"
         }
