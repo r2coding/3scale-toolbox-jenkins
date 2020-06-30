@@ -15,7 +15,7 @@ class ThreescaleService {
 
         def baseName = util.basename(this.openapi.filename)
         def globalOptions = toolbox.getGlobalToolboxOptions()
-        def commandLine = ["3scale", "import", "openapi"] + globalOptions + ["--skip-swagger-validations", "-t", this.environment.targetSystemName, "-d", this.toolbox.destination, "/artifacts/${baseName}"]
+        def commandLine = ["3scale", "import", "openapi"] + globalOptions + ["-t", this.environment.targetSystemName, "-d", this.toolbox.destination, "/artifacts/${baseName}"]
         if (this.environment.stagingPublicBaseURL != null) {
             commandLine += "--staging-public-base-url=${this.environment.stagingPublicBaseURL}"
         }
@@ -42,9 +42,9 @@ class ThreescaleService {
             commandLine += "--override-public-basepath=${this.environment.publicBasePath}"
         }
 
-        if (!this.openapi.validateOAS) {
+        // if (!this.openapi.validateOAS) {
             commandLine += "--skip-openapi-validation"
-        }
+        // }
 
         toolbox.runToolbox(commandLine: commandLine,
                 jobName: "import-openapi",
@@ -104,7 +104,8 @@ class ThreescaleService {
 
             // Disabled for now because of https://issues.jboss.org/browse/THREESCALE-2844
             /*
-            if (it.active) {
+            if (it.
+            ve) {
                 commandLine += "--resume"
             } else {
                 commandLine += "--suspend"
