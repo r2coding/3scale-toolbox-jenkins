@@ -70,24 +70,24 @@ class OpenAPI2 {
         } else {
             throw new Exception("Cannot handle OpenAPI Specifications with multiple security requirements or no global requirement. Found ${content.security != null ? content.security.size() : "no"} security requirements.")
         }
+        
+      //  if (securitySchemeName != null) {
+        //    if (content.securityDefinitions != null
+          //   && content.securityDefinitions.get(securitySchemeName) != null) {
 
-        if (securitySchemeName != null) {
-            if (content.securityDefinitions != null
-             && content.securityDefinitions.get(securitySchemeName) != null) {
-
-                Map securityScheme = content.securityDefinitions.get(securitySchemeName)
-                String securityType = securityScheme.type
+            //    Map securityScheme = content.securityDefinitions.get(securitySchemeName)
+              //  String securityType = securityScheme.type
 
                 //if (securityType == "oauth2") {
-                    this.securityScheme = ThreescaleSecurityScheme.OIDC
+                //    this.securityScheme = ThreescaleSecurityScheme.OIDC
                 //} else if (securityType == "apiKey") {
                 //    this.securityScheme = ThreescaleSecurityScheme.APIKEY
                 //} else {
                 //    throw new Exception("Cannot handle OpenAPI Specifications with security scheme: ${securityType}")
                 //}
-            } else {
-                throw new Exception("Cannot find security scheme ${securitySchemeName} in OpenAPI Specifications")
-            }
-        } // else: this is an Open API
+           // } else {
+           //     throw new Exception("Cannot find security scheme ${securitySchemeName} in OpenAPI Specifications")
+          //  }
+      //  } // else: this is an Open API
     }
 }
