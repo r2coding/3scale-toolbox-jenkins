@@ -81,7 +81,7 @@ class OpenAPI2 {
                 //if (securityType == "oauth2") {
                 //    this.securityScheme = ThreescaleSecurityScheme.OIDC
                 //} else if (securityType == "apiKey") {
-                //    this.securityScheme = ThreescaleSecurityScheme.APIKEY
+                    this.securityScheme = ThreescaleSecurityScheme.APIKEY
                 //} else {
                 //    throw new Exception("Cannot handle OpenAPI Specifications with security scheme: ${securityType}")
                 //}
