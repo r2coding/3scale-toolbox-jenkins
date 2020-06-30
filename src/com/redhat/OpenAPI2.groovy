@@ -53,41 +53,41 @@ class OpenAPI2 {
         this.majorVersion = version.tokenize(".")[0]
 
         String securitySchemeName = null
-        // if (content.security != null && content.security.size() == 1) {
+        if (content.security != null && content.security.size() == 1) {
             Set securitySchemes = content.security[0].keySet()
-        //     if (securitySchemes.size() == 1) {
+            if (securitySchemes.size() == 1) {
                 securitySchemeName = securitySchemes.first()
-        //     } else {
-        //         throw new Exception("Cannot handle OpenAPI Specifications with multiple security requirements or no global requirement. Found ${content.security.size()}/${securitySchemes.size()} security requirements.")
-        //     }
+            } else {
+                throw new Exception("Cannot handle OpenAPI Specifications with multiple security requirements or no global requirement. Found ${content.security.size()}/${securitySchemes.size()} security requirements.")
+            }
 
-        // } else if ((content.security == null || content.security.size() == 0)
-        //         && (content.securityDefinitions == null || content.securityDefinitions.size() == 0)) {
+        } else if ((content.security == null || content.security.size() == 0)
+                && (content.securityDefinitions == null || content.securityDefinitions.size() == 0)) {
 
-        //     // To make it explicit that this is an Open API, we require no security requirement
-        //     // and no security definition (better be safe than sorry...)
+            // To make it explicit that this is an Open API, we require no security requirement
+            // and no security definition (better be safe than sorry...)
             this.securityScheme = ThreescaleSecurityScheme.OPEN
-        // } else {
-        //     throw new Exception("Cannot handle OpenAPI Specifications with multiple security requirements or no global requirement. Found ${content.security != null ? content.security.size() : "no"} security requirements.")
-        // }
+        } else {
+            throw new Exception("Cannot handle OpenAPI Specifications with multiple security requirements or no global requirement. Found ${content.security != null ? content.security.size() : "no"} security requirements.")
+        }
         
-        // if (securitySchemeName != null) {
-        //     if (content.securityDefinitions != null
-        //      && content.securityDefinitions.get(securitySchemeName) != null) {
+        if (securitySchemeName != null) {
+            if (content.securityDefinitions != null
+             && content.securityDefinitions.get(securitySchemeName) != null) {
 
-        //         Map securityScheme = content.securityDefinitions.get(securitySchemeName)
-        //         String securityType = securityScheme.type
+                Map securityScheme = content.securityDefinitions.get(securitySchemeName)
+                String securityType = securityScheme.type
 
-        //         if (securityType == "oauth2") {
-        //             this.securityScheme = ThreescaleSecurityScheme.OIDC
-        //         } else if (securityType == "apiKey") {
+                if (securityType == "oauth2") {
+                    this.securityScheme = ThreescaleSecurityScheme.OIDC
+                } else if (securityType == "apiKey") {
                     this.securityScheme = ThreescaleSecurityScheme.APIKEY
-        //         } else {
-        //             throw new Exception("Cannot handle OpenAPI Specifications with security scheme: ${securityType}")
-        //         }
-        //     } else {
-        //         throw new Exception("Cannot find security scheme ${securitySchemeName} in OpenAPI Specifications")
-        //     }
-        // } // else: this is an Open API
+                } else {
+                    throw new Exception("Cannot handle OpenAPI Specifications with security scheme: ${securityType}")
+                }
+            } else {
+                throw new Exception("Cannot find security scheme ${securitySchemeName} in OpenAPI Specifications")
+            }
+        } // else: this is an Open API
     }
 }
