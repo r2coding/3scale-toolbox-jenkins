@@ -78,13 +78,13 @@ class OpenAPI2 {
                 Map securityScheme = content.securityDefinitions.get(securitySchemeName)
                 String securityType = securityScheme.type
 
-                if (securityType == "oauth2") {
+                //if (securityType == "oauth2") {
                     this.securityScheme = ThreescaleSecurityScheme.OIDC
-                } else if (securityType == "apiKey") {
-                    this.securityScheme = ThreescaleSecurityScheme.APIKEY
-                } else {
-                    throw new Exception("Cannot handle OpenAPI Specifications with security scheme: ${securityType}")
-                }
+                //} else if (securityType == "apiKey") {
+                //    this.securityScheme = ThreescaleSecurityScheme.APIKEY
+                //} else {
+                //    throw new Exception("Cannot handle OpenAPI Specifications with security scheme: ${securityType}")
+                //}
             } else {
                 throw new Exception("Cannot find security scheme ${securitySchemeName} in OpenAPI Specifications")
             }
